@@ -2,6 +2,6 @@
 
 namespace TutoraUK\Braze;
 
-class Braze
+class Braze extends \ImmobiliareLabs\BrazeSDK\Braze
 {
 }
