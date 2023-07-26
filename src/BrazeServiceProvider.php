@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\HttpFactory;
 use ImmobiliareLabs\BrazeSDK\ClientAdapter\Psr18Adapter;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use TutoraUK\Braze\ClientAdapter\LaravelAdapter;
 
 class BrazeServiceProvider extends PackageServiceProvider
 {
@@ -29,16 +30,18 @@ class BrazeServiceProvider extends PackageServiceProvider
                 throw new Exception('Ensure BRAZE_REST_ENDPOINT configuration value is correctly defined in your .env file.');
             }
 
-            return new Braze(
-                new Psr18Adapter(
+            $adapter = match (config('braze.client_adapter')) {
+                'laravel' => new LaravelAdapter(),
+                'guzzle' => new Psr18Adapter(
                     new Client(),
                     new HttpFactory(),
                     new HttpFactory(),
                     new HttpFactory(),
                 ),
-                $apiKey,
-                $restEndpoint
-            );
+                default => throw new Exception("Unknown BRAZE_CLIENT_ADAPTER. Supported adapters are either 'laravel' or 'guzzle'")
+            };
+
+            return new Braze($adapter, $apiKey, $restEndpoint);
         });
     }
 }
