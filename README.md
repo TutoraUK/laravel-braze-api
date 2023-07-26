@@ -1,6 +1,13 @@
 <img src="./art/social-image.png"  alt="Laravel Braze"/>
 
-Minimal Laravel wrapper for [immobiliare/braze-php-sdk](https://github.com/immobiliare/braze-php-sdk) package.
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/tutorauk/laravel-braze-api.svg?style=flat-square)](https://packagist.org/packages/tutorauk/laravel-braze-api)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/tutorauk/laravel-braze-api/run-tests.yml?branch=main&label=tests)](https://github.com/tutorauk/laravel-braze-api/actions/workflows/run-tests.yml)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/tutorauk/laravel-braze-api/fix-php-code-style-issues.yml?branch=main&label=code%20style)](https://github.com/tutorauk/laravel-braze-api/actions/workflows/fix-php-code-style-issues.yml)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/tutorauk/laravel-braze-api/phpstan.yml?branch=main&label=static%20analysis)](https://github.com/tutorauk/laravel-braze-api/actions/workflows/php-cs-fixer.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/tutorauk/laravel-braze-api.svg?style=flat-square)](https://packagist.org/packages/tutorauk/laravel-braze-api)
+[![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+
+Laravel wrapper around the [immobiliare/braze-php-sdk](https://github.com/immobiliare/braze-php-sdk) package.
 
 ## Installation
 
