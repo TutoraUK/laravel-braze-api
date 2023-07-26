@@ -1,19 +1,6 @@
-# A Laravel client for the Braze REST API
+<img src="./art/social-image.png"  alt="Laravel Braze"/>
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/tutorauk/laravel-braze-api.svg?style=flat-square)](https://packagist.org/packages/tutorauk/laravel-braze-api)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/tutorauk/laravel-braze-api/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/tutorauk/laravel-braze-api/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/tutorauk/laravel-braze-api/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/tutorauk/laravel-braze-api/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/tutorauk/laravel-braze-api.svg?style=flat-square)](https://packagist.org/packages/tutorauk/laravel-braze-api)
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-braze-api.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-braze-api)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+Minimal Laravel wrapper for [immobiliare/braze-php-sdk](https://github.com/immobiliare/braze-php-sdk) package.
 
 ## Installation
 
@@ -23,44 +10,49 @@ You can install the package via composer:
 composer require tutorauk/laravel-braze-api
 ```
 
-You can publish and run the migrations with:
+Then you need to your Braze api key and the correct rest endpoint to your `.env` file:
 
 ```bash
-php artisan vendor:publish --tag="laravel-braze-api-migrations"
-php artisan migrate
+BRAZE_API_KEY='apiKey'
+BRAZE_REST_ENDPOINT=https://rest.fra-02.braze.eu
 ```
 
-You can publish the config file with:
+### Http Client Adapters
+
+This package has support for the [Laravel HTTP Client](https://laravel.com/docs/http-client) or [Guzzle](https://docs.guzzlephp.org/en/stable/). 
+The Laravel HTTP Client is the default and preferred client. Utilising the Laravel client, enables you to take advantage of Laravels [testing helpers](https://laravel.com/docs/http-client#testing) within your tests.
+
+If you would prefer to use Guzzle, you can specify the adapter in your `.env` file:
 
 ```bash
-php artisan vendor:publish --tag="laravel-braze-api-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-braze-api-views"
+BRAZE_CLIENT_ADAPTER=guzzle
 ```
 
 ## Usage
 
+This package binds a singleton to the Laravel service container, so you can easily resolve the Braze client directly from the container, or via dependency injection. Alternatively, the package also exposes both a Facade and a helper function should you prefer a shorter more expressive option.
+
 ```php
-$braze = new TutoraUK\Braze();
-echo $braze->echoPhrase('Hello, TutoraUK!');
+// Resolve service directly from container and access the users endpoint
+app(Braze::class)->users();
+
+// Resolve via Facade and access the users endpoint
+Braze::users(); 
+
+// Resolve service via helper and access the users endpoint
+braze()->users();
 ```
 
-## Testing
+## Testing, Static Analysis and Formatting
 
 ```bash
 composer test
+composer analyse
+composer format
 ```
+
+## Thanks
+Big shout out to [Immobiliare Labs](https://github.com/immobiliare) for their [Braze PHP SDK](https://github.com/immobiliare/braze-php-sdk) package. They did all the hard work 👏! 
 
 ## Changelog
 
