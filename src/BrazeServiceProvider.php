@@ -22,13 +22,8 @@ class BrazeServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         $this->app->singleton(Braze::class, function () {
-            if (! ($apiKey = config('braze.api_key')) || ! is_string($apiKey)) {
-                throw new Exception('Ensure the BRAZE_API_KEY configuration value is correctly defined in your .env file.');
-            }
-
-            if (! ($restEndpoint = config('braze.rest_endpoint')) || ! is_string($restEndpoint)) {
-                throw new Exception('Ensure BRAZE_REST_ENDPOINT configuration value is correctly defined in your .env file.');
-            }
+            $apiKey = config('braze.api_key');
+            $restEndpoint = config('braze.rest_endpoint');
 
             $adapter = match (config('braze.client_adapter')) {
                 'laravel' => new LaravelAdapter(),
@@ -38,10 +33,14 @@ class BrazeServiceProvider extends PackageServiceProvider
                     new HttpFactory(),
                     new HttpFactory(),
                 ),
-                default => throw new Exception("Unknown BRAZE_CLIENT_ADAPTER. Supported adapters are either 'laravel' or 'guzzle'")
+                default => throw new Exception("Unknown BRAZE_CLIENT_ADAPTER. Supported adapters are 'laravel' or 'guzzle'")
             };
 
-            return new Braze($adapter, $apiKey, $restEndpoint);
+            return new Braze(
+                $adapter,
+                $apiKey && is_string($apiKey) ? $apiKey : '',
+                $restEndpoint && is_string($restEndpoint) ? $restEndpoint : ''
+            );
         });
     }
 }
